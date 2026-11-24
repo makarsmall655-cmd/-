@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Кофейня «Пять Чувств»</title>
+<meta name="description" content="Кофейня «Пять Чувств». Кофе, десерты и спокойная атмосфера. Заказать столик можно на сайте.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☕</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,700;1,700&family=Jost:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eadfca;--paper:#f7f0e3;--ink:#3a2314;--rust:#8a4b24;--caramel:#d9a35f}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.55 Jost,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rust);outline-offset:3px}
+details[open] :focus-visible,.foot :focus-visible{outline-color:var(--caramel)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0}
+.logo{font:700 1.6rem/1 Alegreya,Georgia,serif;text-decoration:none}
+.tel{font-weight:600;text-decoration:none;border-bottom:2px solid var(--caramel);padding-bottom:1px}
+.hero{padding:clamp(36px,8vw,100px) 0 clamp(40px,7vw,80px)}
+.hero h1{font:700 clamp(2.7rem,9vw,6.4rem)/.98 Alegreya,Georgia,serif;margin:0 0 .35em;max-width:13ch;letter-spacing:-.01em}
+.hero p{max-width:34ch;font-size:1.2rem;margin:0 0 1.6em}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;font:600 1rem Jost,system-ui,sans-serif;border:2px solid var(--ink);border-radius:999px;
+  padding:.7em 1.5em;background:transparent;color:var(--ink);text-decoration:none;cursor:pointer;
+  transition:background .18s ease,color .18s ease}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn:hover{background:var(--caramel);color:var(--ink);border-color:var(--ink)}
+.btn[disabled]{opacity:.5;cursor:wait}
+
+/* Пять чувств */
+.senses{border-top:2px solid var(--ink)}
+details{border-bottom:2px solid var(--ink)}
+summary{list-style:none;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+  padding:16px max(24px,calc((100vw - 1080px)/2))}
+summary::-webkit-details-marker{display:none}
+.word{font:italic 700 clamp(3rem,11vw,7rem)/1.02 Alegreya,Georgia,serif;transition:color .18s ease}
+.line{max-width:25ch;text-align:right;font-size:1rem}
+summary:hover .word{color:var(--rust)}
+details[open]{background:var(--ink);color:var(--paper)}
+details[open] .word,details[open] summary:hover .word{color:var(--caramel)}
+.panel{padding:4px max(24px,calc((100vw - 1080px)/2)) 40px}
+.panel>p{max-width:46ch;font-size:1.15rem;margin:0}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 48px}
+.menu h3{font:700 1.5rem Alegreya,Georgia,serif;margin:0 0 .4em;color:var(--caramel)}
+.menu ul{list-style:none;margin:0;padding:0}
+.menu li{display:flex;justify-content:space-between;gap:12px;padding:.35em 0;border-bottom:1px dotted #f7f0e366}
+.menu li span:last-child{white-space:nowrap}
+
+/* Столик */
+.book{padding:clamp(48px,8vw,96px) 0}
+.book h2{font:700 clamp(2rem,6vw,3.4rem)/1.05 Alegreya,Georgia,serif;margin:0 0 .3em}
+.book .lead{max-width:40ch;margin:0 0 1.6em}
+form{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;max-width:760px}
+label{display:block;font-weight:600;font-size:.95rem}
+input,textarea,select{display:block;width:100%;margin-top:6px;font:400 1rem Jost,system-ui,sans-serif;
+  padding:.65em .8em;border:2px solid var(--ink);border-radius:10px;background:var(--paper);color:var(--ink)}
+.wide{grid-column:1/-1}
+#status{min-height:1.6em;font-weight:600;margin:0}
+#status.err{color:var(--rust)}
+
+.foot{background:var(--ink);color:var(--paper);padding:40px 0 48px}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:20px 56px;justify-content:space-between}
+.foot b{display:block;font:700 1.3rem Alegreya,Georgia,serif;color:var(--caramel);margin-bottom:.2em}
+.foot p{margin:0}
+
+dialog{border:2px solid var(--ink);border-radius:16px;background:var(--paper);color:var(--ink);
+  padding:28px;width:min(420px,calc(100% - 32px))}
+dialog::backdrop{background:#3a2314b3}
+dialog h2{font:700 1.8rem/1.1 Alegreya,Georgia,serif;margin:0 0 .3em}
+dialog p{margin:0 0 1em}
+.num{font:700 2.1rem/1.1 Alegreya,Georgia,serif;user-select:all}
+
+@media (max-width:640px){
+  summary{flex-direction:column;gap:2px;padding-block:12px}
+  .line{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style></head>
+
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="/">Пять Чувств</a>
+    <a class="tel" href="tel:+79933256081">+7 (993) 325-60-81</a>
+  </header>
+  <section class="hero">
+    <h1>Кофе для всех пяти чувств</h1>
+    <p>Кофейня Анны Маркисян. Приходите за чашкой, оставайтесь на дольше.</p>
+    <div class="actions">
+      <a class="btn solid" href="#book">Заказать столик</a>
+      <a class="btn" href="tel:+79933256081">Позвонить</a>
+    </div>
+  </section>
+</div>
+
+<section class="senses" aria-label="Пять чувств">
+<details name="senses" open><summary><span class="word">Вкус</span><span class="line">Кофе, чай и десерты на каждый день</span></summary><div class="panel"><div class="menu"><div><h3>Кофе</h3><ul><li><span>Эспрессо</span><span>180 ₽</span></li><li><span>Американо</span><span>200 ₽</span></li><li><span>Капучино</span><span>280 ₽</span></li><li><span>Флэт уайт</span><span>300 ₽</span></li><li><span>Раф</span><span>330 ₽</span></li><li><span>Фильтр-кофе</span><span>250 ₽</span></li></ul></div><div><h3>Не кофе</h3><ul><li><span>Чай в чайнике</span><span>300 ₽</span></li><li><span>Какао</span><span>280 ₽</span></li><li><span>Матча-латте</span><span>340 ₽</span></li><li><span>Домашний лимонад</span><span>260 ₽</span></li></ul></div><div><h3>Десерты</h3><ul><li><span>Круассан</span><span>190 ₽</span></li><li><span>Чизкейк</span><span>320 ₽</span></li><li><span>Морковный торт</span><span>290 ₽</span></li><li><span>Банановый хлеб</span><span>230 ₽</span></li></ul></div></div></div></details>
+<details name="senses"><summary><span class="word">Аромат</span><span class="line">Пахнет свежемолотым кофе уже у двери</span></summary><div class="panel"><p>Первое, что вы почувствуете, — запах кофе. Второе — что торопиться некуда. Спросите бариста про зёрна недели: расскажем, чем они пахнут и как лучше их заварить.</p></div></details>
+<details name="senses"><summary><span class="word">Взгляд</span><span class="line">Тёплый свет и окно на улицу</span></summary><div class="panel"><p>Мягкий свет, дерево, зелень и столик у окна, за которым хорошо смотреть на прохожих. Приходите с книгой, ноутбуком или просто с мыслями.</p></div></details>
+<details name="senses"><summary><span class="word">Слух</span><span class="line">Негромкая музыка и шипение молочника</span></summary><div class="panel"><p>Тихий плейлист, звон ложечек о фарфор, разговоры вполголоса. Достаточно спокойно, чтобы услышать собеседника, и достаточно живо, чтобы не было скучно.</p></div></details>
+<details name="senses"><summary><span class="word">Касание</span><span class="line">Тяжёлые чашки, тёплое дерево, мягкие пледы</span></summary><div class="panel"><p>Чашка, которая приятно лежит в ладонях, дерево стола, плед на прохладный вечер. Мелочи, из-за которых хочется остаться ещё на одну чашку.</p></div></details>
+</section>
+
+<section class="book" id="book">
+  <div class="wrap">
+    <h2>Заказать столик</h2>
+    <p class="lead">Заполните форму: откроется WhatsApp с готовым сообщением, останется нажать «Отправить». Мы подтвердим столик. Или позвоните сами: <a href="tel:+79933256081">+7 (993) 325-60-81</a>.</p>
+    <form id="form" novalidate>
+      <label>Имя<input name="name" required maxlength="80" autocomplete="given-name"></label>
+      <label>Телефон<input name="phone" type="tel" required maxlength="30" autocomplete="tel" placeholder="+7"></label>
+      <label>Дата<input name="date" type="date" required></label>
+      <label>Время<input name="time" type="time" required value="18:00"></label>
+      <label>Гостей<input name="guests" type="number" min="1" max="20" value="2" required></label>
+      <label class="wide">Комментарий (необязательно)<textarea name="comment" rows="3" maxlength="300"></textarea></label>
+      <div class="wide actions">
+        <button class="btn solid" id="send" type="submit">Отправить в WhatsApp</button>
+      </div>
+      <p class="wide" id="status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div><b>Пять Чувств</b><p>Хозяйка — Анна Маркисян</p></div>
+    <div><b>Телефон</b><p><a href="tel:+79933256081">+7 (993) 325-60-81</a></p></div>
+
+  </div>
+</footer>
+
+<dialog id="call" aria-labelledby="call-title">
+  <h2 id="call-title">Позвоните нам</h2>
+  <p class="num">+7 (993) 325-60-81</p>
+  <p>Наберите этот номер с телефона или скопируйте его.</p>
+  <div class="actions">
+    <button class="btn solid" id="copy-num" type="button">Скопировать номер</button>
+    <button class="btn" id="close-call" type="button">Закрыть</button>
+  </div>
+</dialog>
+
+<script>
+const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+  || (navigator.maxTouchPoints > 1 && matchMedia("(pointer: coarse)").matches);
+const callDlg = document.getElementById("call"), copyBtn = document.getElementById("copy-num");
+if (!isMobile) {
+  // На компьютере ссылка tel: ничего не делает, поэтому показываем номер.
+  document.querySelectorAll('a[href^="tel:"]').forEach(a => a.addEventListener("click", e => {
+    e.preventDefault();
+    copyBtn.textContent = "Скопировать номер";
+    callDlg.showModal();
+  }));
+}
+copyBtn.addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText("+79933256081"); copyBtn.textContent = "Скопировано"; }
+  catch (_) { prompt("Скопируйте номер:", "+79933256081"); }
+});
+document.getElementById("close-call").addEventListener("click", () => callDlg.close());
+callDlg.addEventListener("click", e => { if (e.target === callDlg) callDlg.close(); });
+
+const form = document.getElementById("form"), status = document.getElementById("status");
+const today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+form.date.min = today;
+form.date.value = today;
+const WA_PHONE = "79933256081";
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  status.className = "err";
+  const d = Object.fromEntries(new FormData(form));
+  const name = (d.name || "").trim(), phone = (d.phone || "").trim(), comment = (d.comment || "").trim();
+  const digits = phone.replace(/\D/g, "");
+  const guests = parseInt(d.guests, 10);
+  if (!name) { status.textContent = "Укажите, как вас зовут."; return; }
+  if (digits.length < 10 || digits.length > 15) { status.textContent = "Проверьте номер телефона: нужно от 10 цифр."; return; }
+  if (!d.date || d.date < today) { status.textContent = "Выберите сегодняшнюю или будущую дату."; return; }
+  if (!d.time) { status.textContent = "Укажите время."; return; }
+  if (!(guests >= 1 && guests <= 20)) { status.textContent = "Мы принимаем заявки на 1–20 гостей. Для больших компаний позвоните нам."; return; }
+  const [y, m, day] = d.date.split("-");
+  const text = "Здравствуйте! Хочу заказать столик в «Пять Чувств».\n"
+    + "Имя: " + name + "\n"
+    + "Телефон: " + phone + "\n"
+    + "Дата: " + day + "." + m + "." + y + "\n"
+    + "Время: " + d.time + "\n"
+    + "Гостей: " + guests
+    + (comment ? "\nКомментарий: " + comment : "");
+  status.className = "";
+  status.textContent = "Открываем WhatsApp… Нажмите «Отправить» в сообщении.";
+  window.location.href = "https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(text);
+});
+</script>
+</body></html>
